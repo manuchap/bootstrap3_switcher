@@ -1,0 +1,42 @@
+---
+title: Contact
+published: true
+handle: contact
+---
+{% extends 'layouts/simple' %}
+
+{% block content/main %}
+
+<div class="row">
+
+  {% model_form 'messages', success: '/', error: '/contact' %}
+
+  {% if message.errors %}
+  <p>The following errors occured:</p>
+  <ul>
+    {% for error in message.errors %}
+    <li>{{error[0] | capitalize}} -  {{error[1]}}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  <form>
+    <div class="form-group">
+      <label for="exampleInputName">Name</label>
+      <input type="text" class="form-control" rows="3" name="content[name]" value="{{message.name}}">
+    </div>
+    <div class="form-group">
+      <label for="exampleInputEmail">Email</label>
+      <input type="text" class="form-control" rows="3" name="content[email]" value="{{message.email}}">
+    </div>
+    <div class="form-group">
+      <label for="exampleMessage">Message</label>
+      <textarea class="form-control " rows="5" name="content[message]">{{message.message}}</textarea>
+    </div>
+    <button type="submit" class="btn btn-default">Send</button>
+  </form>
+  {% endmodel_form %}
+
+</div>
+
+{% endblock %}
